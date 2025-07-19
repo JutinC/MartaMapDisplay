@@ -139,47 +139,58 @@ app.get('/api/martainfo/line/:lineName', async (req, res) => {
     }
 });
 
-app.get('/api/martainfo/destination/:destionationName', async (req, res) => {
+app.get('/api/martainfo/destination/:destinationName', async (req, res) => {
     try {
-        const destinationName = req.params.destionationName.toLowerCase();
+        const destinationName = req.params.destinationName.toLowerCase();
         const response = await axios.get(`https://developerservices.itsmarta.com:18096/itsmarta/railrealtimearrivals/developerservices/traindata?apiKey=${M_API_KEY}`);
         const posts = response.data;
         const destinations = [];
+        const trainIds = [];
         const error = "Error: Not a valid destination.";
         console.log(destinationName);
         for (let i = 0; i < posts.length; i++) {
 
-            if (destinationName == "north_springs") {
-                if (posts[i].DESTINATION == "North Springs") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "hamilton_e_holmes") {
-                if (posts[i].DESTINATION == "Hamilton E. Holmes") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "doraville") {
-                if (posts[i].DESTINATION == "Doraville") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "airport") {
-                if (posts[i].DESTINATION == "Airport") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "king_memorial") {
-                if (posts[i].DESTINATION == "King Memorial") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "indian_creek") {
-                if (posts[i].DESTINATION == "Indian Creek") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "bankhead") {
-                if (posts[i].DESTINATION == "Bankhead") {
-                    destinations.push(posts[i]);
-                }
-            } else if (destinationName == "lindbergh_center") {
-                if (posts[i].DESTINATION == "Lindbergh Center") {
-                    destinations.push(posts[i]);
+            if (!trainIds.includes(posts[i].TRAIN_ID)) {
+                if (destinationName == "north_springs") {
+                    if (posts[i].DESTINATION == "North Springs") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "hamilton_e_holmes") {
+                    if (posts[i].DESTINATION == "Hamilton E. Holmes") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "doraville") {
+                    if (posts[i].DESTINATION == "Doraville") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "airport") {
+                    if (posts[i].DESTINATION == "Airport") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "king_memorial") {
+                    if (posts[i].DESTINATION == "King Memorial") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "indian_creek") {
+                    if (posts[i].DESTINATION == "Indian Creek") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "bankhead") {
+                    if (posts[i].DESTINATION == "Bankhead") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
+                } else if (destinationName == "lindbergh_center") {
+                    if (posts[i].DESTINATION == "Lindbergh Center") {
+                        destinations.push(posts[i]);
+                        trainIds.push(posts[i].TRAIN_ID);
+                    }
                 }
             }
         }
